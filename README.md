@@ -63,3 +63,10 @@ institute-management-system/
 ├── run.py
 ├── .env.example
 └── .gitignore
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/alithika26/Institute-management-system.git
+cd Institute-management-system
