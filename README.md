@@ -64,13 +64,12 @@ institute-management-system/
 ├── .env.example
 └── .gitignore
 
-## Installation
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/alithika26/Institute-management-system.git
-cd Institute-management-system
+  git clone https://github.com/alithika26/Institute-management-system.git
+  cd Institute-management-system
 ```
 
 ### 2. Create a virtual environment
