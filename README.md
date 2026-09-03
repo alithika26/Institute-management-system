@@ -71,11 +71,13 @@ institute-management-system/
 ```bash
 git clone https://github.com/alithika26/Institute-management-system.git
 cd Institute-management-system
+```
 
 ### 2. Create a virtual environment
 
 ```bash
 python -m venv venv
+```
 
 ### 3. Activate the virtual environment
 
@@ -83,11 +85,13 @@ python -m venv venv
 
 ```powershell
 venv\Scripts\activate
+```
 
 ### 4. Install dependencies
 
 ```bash
 pip install -r requirements.txt
+```
 
 ### 5. Configure environment variables
 
@@ -97,26 +101,31 @@ Create a `.env` file based on `.env.example`.
 SECRET_KEY=your-secret-key
 DATABASE_URL=sqlite:///institute.db
 ADMIN_PASSWORD=your-admin-password
+```
 
 ### 6. Initialize the database
 
 ```bash
 python init_db.py
+```
 
 ### 7. Add sample data
 
 ```bash
 python seed_data.py
+```
 
 ### 8. Create the admin account
 
-```bash
+```bash-
 python seed_admin.py
+```
 
 ### 9. Run the application
 
 ```bash
 python run.py
+```
 
 Open `http://127.0.0.1:5000` in your browser.
 
