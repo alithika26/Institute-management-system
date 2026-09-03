@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Student</title>
+
+</head>
+
+<body>
+
+    <h1>Edit Student</h1>
+
+    <p>
+        <strong>Roll Number:</strong>
+        {{ student.roll_no }}
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name() }}
+        </p>
+
+        <p>
+            {{ form.programme.label }}<br>
+            {{ form.programme() }}
+        </p>
+
+        <p>
+            {{ form.branch.label }}<br>
+            {{ form.branch() }}
+        </p>
+
+        <p>
+            {{ form.semester.label }}<br>
+            {{ form.semester() }}
+        </p>
+
+        <p>
+            {{ form.submit() }}
+        </p>
+
+    </form>
+
+    <hr>
+
+    <p>
+        <a href="{{ url_for('admin.manage_students') }}">
+            Back to Students
+        </a>
+    </p>
+
+</body>
+
+</html>

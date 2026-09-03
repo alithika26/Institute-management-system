@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Faculty Management{% endblock %}
+
+{% block page_title %}
+Faculty Management
+{% endblock %}
+
+{% block page_subtitle %}
+Add, edit and manage faculty members.
+{% endblock %}
+
+{% block sidebar %}
+
+<a href="{{ url_for('admin.admin_dashboard') }}">
+    🏠 Dashboard
+</a>
+
+<a href="{{ url_for('admin.manage_students') }}">
+    👨‍🎓 Students
+</a>
+
+<a href="{{ url_for('admin.manage_faculty') }}">
+    👨‍🏫 Faculty
+</a>
+
+<a href="{{ url_for('admin.manage_programmes') }}">
+    📚 Programmes
+</a>
+
+<a href="{{ url_for('admin.manage_courses') }}">
+    📖 Courses
+</a>
+
+<a href="{{ url_for('admin.manage_enrollments') }}">
+    📝 Enrollments
+</a>
+
+<a href="{{ url_for('admin.admin_logout') }}">
+    🚪 Logout
+</a>
+
+{% endblock %}
+
+
+{% block user_info %}
+
+Admin
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ADD FACULTY -->
+
+<div class="card">
+
+    <h2>Add New Faculty</h2>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <div class="dashboard-grid">
+
+            <div class="form-group">
+                {{ form.fac_code.label }}
+                {{ form.fac_code() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.room_no.label }}
+                {{ form.room_no() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.phone_no.label }}
+                {{ form.phone_no() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.email_id.label }}
+                {{ form.email_id() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.office.label }}
+                {{ form.office() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password() }}
+            </div>
+
+        </div>
+
+        {{ form.submit(value="Add Faculty") }}
+
+    </form>
+
+</div>
+
+
+<!-- FACULTY LIST -->
+
+<div class="card">
+
+    <h2>Faculty Members</h2>
+
+    {% if faculty_members %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Faculty Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Room</th>
+                    <th>Office</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for faculty in faculty_members %}
+
+                <tr>
+
+                    <td>
+                        <strong>{{ faculty.fac_code }}</strong>
+                    </td>
+
+                    <td>
+                        {{ faculty.name }}
+                    </td>
+
+                    <td>
+                        {{ faculty.email_id }}
+                    </td>
+
+                    <td>
+                        {{ faculty.phone_no }}
+                    </td>
+
+                    <td>
+                        {{ faculty.room_no }}
+                    </td>
+
+                    <td>
+                        {{ faculty.office }}
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <a
+                                href="{{ url_for(
+                                    'admin.edit_faculty',
+                                    fac_code=faculty.fac_code
+                                ) }}"
+                                class="btn"
+                            >
+                                Edit
+                            </a>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin.delete_faculty',
+                                    fac_code=faculty.fac_code
+                                ) }}"
+                            >
+
+                                {{ form.csrf_token }}
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger"
+                                    onclick="return confirm(
+                                        'Are you sure you want to delete this faculty member?'
+                                    );"
+                                >
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <p style="color: #6b7280;">
+            No faculty members found.
+        </p>
+
+    {% endif %}
+
+</div>
+
+
+<div class="card">
+
+    <a
+        href="{{ url_for('admin.admin_dashboard') }}"
+        class="btn btn-secondary"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

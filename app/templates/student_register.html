@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Student Registration | Institute Management System{% endblock %}
+
+{% block sidebar %}
+    <a href="{{ url_for('home') }}">🏠 Home</a>
+    <a href="{{ url_for('auth.student_login') }}">🎓 Student Login</a>
+    <a href="{{ url_for('auth.student_register') }}" class="active">📝 Student Registration</a>
+    <a href="{{ url_for('faculty.faculty_login') }}">👨‍🏫 Faculty Login</a>
+    <a href="{{ url_for('admin.admin_login') }}">🔐 Admin Login</a>
+{% endblock %}
+
+{% block page_title %}Student Registration{% endblock %}
+{% block page_subtitle %}Create your student account{% endblock %}
+
+{% block user_info %}
+    🎓 Student Portal
+{% endblock %}
+
+{% block content %}
+
+<div style="max-width: 700px; margin: 30px auto;">
+
+    <div class="card">
+
+        <div style="text-align: center; margin-bottom: 25px;">
+
+            <div style="
+                width: 60px;
+                height: 60px;
+                background: #eff6ff;
+                border-radius: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 15px;
+                font-size: 28px;
+            ">
+                🎓
+            </div>
+
+            <h2 style="margin-bottom: 8px;">Create Student Account</h2>
+
+            <p class="text-muted">
+                Enter your details to register
+            </p>
+
+        </div>
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    {{ form.roll_no.label }}
+                    {{ form.roll_no(placeholder="Enter roll number") }}
+
+                    {% for error in form.roll_no.errors %}
+                        <small style="color: #dc2626;">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.name.label }}
+                    {{ form.name(placeholder="Enter full name") }}
+
+                    {% for error in form.name.errors %}
+                        <small style="color: #dc2626;">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    {{ form.programme.label }}
+                    {{ form.programme(placeholder="e.g. B.Tech") }}
+
+                    {% for error in form.programme.errors %}
+                        <small style="color: #dc2626;">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.branch.label }}
+                    {{ form.branch(placeholder="e.g. Information Technology") }}
+
+                    {% for error in form.branch.errors %}
+                        <small style="color: #dc2626;">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    {{ form.semester.label }}
+                    {{ form.semester(placeholder="Enter semester") }}
+
+                    {% for error in form.semester.errors %}
+                        <small style="color: #dc2626;">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.password.label }}
+                    {{ form.password(placeholder="Create a password") }}
+
+                    {% for error in form.password.errors %}
+                        <small style="color: #dc2626;">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div style="margin-top: 10px;">
+                {{ form.submit(class="btn") }}
+            </div>
+
+        </form>
+
+        <div style="
+            text-align: center;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #e5e7eb;
+        ">
+            <span class="text-muted">Already have an account?</span>
+
+            <a href="{{ url_for('auth.student_login') }}"
+               style="color: #2563eb; text-decoration: none; font-weight: 600;">
+                Login here
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

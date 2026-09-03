@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block page_title %}
+Admin Dashboard
+{% endblock %}
+
+{% block page_subtitle %}
+Manage students, faculty, programmes, courses and enrollments.
+{% endblock %}
+
+{% block sidebar %}
+
+<a href="{{ url_for('admin.admin_dashboard') }}">
+    🏠 Dashboard
+</a>
+
+<a href="{{ url_for('admin.manage_students') }}">
+    👨‍🎓 Students
+</a>
+
+<a href="{{ url_for('admin.manage_faculty') }}">
+    👨‍🏫 Faculty
+</a>
+
+<a href="{{ url_for('admin.manage_programmes') }}">
+    📚 Programmes
+</a>
+
+<a href="{{ url_for('admin.manage_courses') }}">
+    📖 Courses
+</a>
+
+<a href="{{ url_for('admin.manage_enrollments') }}">
+    📝 Enrollments
+</a>
+
+<a href="{{ url_for('admin.admin_logout') }}">
+    🚪 Logout
+</a>
+
+{% endblock %}
+
+
+{% block user_info %}
+
+Admin: {{ admin_name }}
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Statistics -->
+
+<div class="dashboard-grid">
+
+    <div class="stat-card">
+
+        <div class="label">
+            Total Students
+        </div>
+
+        <div class="value">
+            {{ student_count }}
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="label">
+            Total Faculty
+        </div>
+
+        <div class="value">
+            {{ faculty_count }}
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="label">
+            Total Courses
+        </div>
+
+        <div class="value">
+            {{ course_count }}
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Management -->
+
+<div class="card">
+
+    <h2>Management</h2>
+
+    <p style="color: #6b7280; margin-bottom: 22px;">
+        Choose an area to manage institute records.
+    </p>
+
+
+    <div class="dashboard-grid">
+
+        <a href="{{ url_for('admin.manage_students') }}"
+           class="stat-card"
+           style="text-decoration: none; color: inherit;">
+
+            <div style="font-size: 28px; margin-bottom: 12px;">
+                👨‍🎓
+            </div>
+
+            <h3 style="margin-bottom: 8px;">
+                Students
+            </h3>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Add, edit and manage student records.
+            </p>
+
+        </a>
+
+
+        <a href="{{ url_for('admin.manage_faculty') }}"
+           class="stat-card"
+           style="text-decoration: none; color: inherit;">
+
+            <div style="font-size: 28px; margin-bottom: 12px;">
+                👨‍🏫
+            </div>
+
+            <h3 style="margin-bottom: 8px;">
+                Faculty
+            </h3>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Manage faculty members and information.
+            </p>
+
+        </a>
+
+
+        <a href="{{ url_for('admin.manage_programmes') }}"
+           class="stat-card"
+           style="text-decoration: none; color: inherit;">
+
+            <div style="font-size: 28px; margin-bottom: 12px;">
+                📚
+            </div>
+
+            <h3 style="margin-bottom: 8px;">
+                Programmes
+            </h3>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Manage programmes and academic branches.
+            </p>
+
+        </a>
+
+
+        <a href="{{ url_for('admin.manage_courses') }}"
+           class="stat-card"
+           style="text-decoration: none; color: inherit;">
+
+            <div style="font-size: 28px; margin-bottom: 12px;">
+                📖
+            </div>
+
+            <h3 style="margin-bottom: 8px;">
+                Courses
+            </h3>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Add and manage institute courses.
+            </p>
+
+        </a>
+
+
+        <a href="{{ url_for('admin.manage_enrollments') }}"
+           class="stat-card"
+           style="text-decoration: none; color: inherit;">
+
+            <div style="font-size: 28px; margin-bottom: 12px;">
+                📝
+            </div>
+
+            <h3 style="margin-bottom: 8px;">
+                Enrollments
+            </h3>
+
+            <p style="color: #6b7280; font-size: 14px;">
+                Enroll students into courses.
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Course Students</title>
+
+</head>
+
+<body>
+
+    <h1>{{ course.name }}</h1>
+
+    <p>
+        Course Code: {{ course.code }}
+    </p>
+
+    <p>
+        Faculty: {{ faculty.name }}
+    </p>
+
+    <hr>
+
+    <h2>Enrolled Students</h2>
+
+    {% if enrollments %}
+
+        <table border="1"
+               cellpadding="8"
+               cellspacing="0">
+
+            <tr>
+
+                <th>Roll Number</th>
+
+                <th>Name</th>
+
+                <th>Programme</th>
+
+                <th>Branch</th>
+
+                <th>Semester</th>
+
+            </tr>
+
+            {% for enrollment in enrollments %}
+
+                <tr>
+
+                    <td>
+                        {{ enrollment.student.roll_no }}
+                    </td>
+
+                    <td>
+                          <a href="{{ url_for(
+        'faculty.student_performance',
+        course_code=course.code,
+        student_id=enrollment.student.roll_no
+    ) }}">
+
+        {{ enrollment.student.name }}
+
+    </a> 
+                    </td>
+
+                    <td>
+                        {{ enrollment.student.programme }}
+                    </td>
+
+                    <td>
+                        {{ enrollment.student.branch }}
+                    </td>
+
+                    <td>
+                        {{ enrollment.student.semester }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>
+            No students are enrolled in this course.
+        </p>
+
+    {% endif %}
+
+    <hr>
+
+    <p>
+        <a href="{{ url_for('faculty.faculty_dashboard') }}">
+            Back to Faculty Dashboard
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('faculty.faculty_logout') }}">
+            Logout
+        </a>
+    </p>
+
+</body>
+
+</html>

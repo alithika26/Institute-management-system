@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}Programmes | Institute Management System{% endblock %}
+
+{% block page_title %}Manage Programmes{% endblock %}
+{% block page_subtitle %}Create and manage academic programmes and branches{% endblock %}
+
+{% block user_info %}
+    <span>Administrator</span>
+{% endblock %}
+
+{% block sidebar %}
+    <a href="{{ url_for('admin.admin_dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('admin.manage_students') }}">Students</a>
+    <a href="{{ url_for('admin.manage_faculty') }}">Faculty</a>
+    <a href="{{ url_for('admin.manage_programmes') }}" class="active">Programmes</a>
+    <a href="{{ url_for('admin.manage_courses') }}">Courses</a>
+    <a href="{{ url_for('admin.manage_enrollments') }}">Enrollments</a>
+    <a href="{{ url_for('admin.admin_logout') }}">Logout</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-grid">
+
+    <!-- ADD PROGRAMME -->
+    <div class="card">
+
+        <div class="card-header">
+            <div>
+                <h2>Add New Programme</h2>
+                <p>Create a programme and its branch details.</p>
+            </div>
+        </div>
+
+        <form method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.programme.label }}
+                {{ form.programme(class="form-control", placeholder="e.g. B.Tech") }}
+
+                {% for error in form.programme.errors %}
+                    <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.branch.label }}
+                {{ form.branch(class="form-control", placeholder="e.g. Information Technology") }}
+
+                {% for error in form.branch.errors %}
+                    <small class="form-error">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    {{ form.no_of_students.label }}
+                    {{ form.no_of_students(class="form-control", placeholder="e.g. 60") }}
+
+                    {% for error in form.no_of_students.errors %}
+                        <small class="form-error">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.total_no_of_sem.label }}
+                    {{ form.total_no_of_sem(class="form-control", placeholder="e.g. 8") }}
+
+                    {% for error in form.total_no_of_sem.errors %}
+                        <small class="form-error">{{ error }}</small>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            {{ form.submit(class="btn btn-primary") }}
+
+        </form>
+
+    </div>
+
+
+    <!-- PROGRAMME LIST -->
+    <div class="card">
+
+        <div class="card-header">
+            <div>
+                <h2>Existing Programmes</h2>
+                <p>Academic programmes currently available in the system.</p>
+            </div>
+
+            <span class="badge">
+                {{ programmes|length }} Programmes
+            </span>
+        </div>
+
+        {% if programmes %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Programme</th>
+                        <th>Branch</th>
+                        <th>Students</th>
+                        <th>Semesters</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for programme in programmes %}
+
+                    <tr>
+                        <td>
+                            <strong>{{ programme.programme }}</strong>
+                        </td>
+
+                        <td>
+                            {{ programme.branch }}
+                        </td>
+
+                        <td>
+                            {{ programme.no_of_students }}
+                        </td>
+
+                        <td>
+                            {{ programme.total_no_of_sem }}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <h3>No programmes yet</h3>
+            <p>Add your first academic programme using the form.</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

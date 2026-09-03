@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Enrollments | Institute Management System{% endblock %}
+
+{% block page_title %}Student Enrollments{% endblock %}
+
+{% block page_subtitle %}
+Enroll students into courses and manage academic registrations
+{% endblock %}
+
+{% block user_info %}
+Administrator
+{% endblock %}
+
+{% block sidebar %}
+
+<a href="{{ url_for('admin.admin_dashboard') }}">Dashboard</a>
+<a href="{{ url_for('admin.manage_students') }}">Students</a>
+<a href="{{ url_for('admin.manage_faculty') }}">Faculty</a>
+<a href="{{ url_for('admin.manage_programmes') }}">Programmes</a>
+<a href="{{ url_for('admin.manage_courses') }}">Courses</a>
+<a href="{{ url_for('admin.manage_enrollments') }}">Enrollments</a>
+<a href="{{ url_for('admin.admin_logout') }}">Logout</a>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ENROLL STUDENT -->
+
+<div class="card">
+
+    <h2>Enroll Student in Course</h2>
+
+    {% if form.student_id.choices and form.course_code.choices %}
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+
+            {{ form.student_id.label }}
+
+            {{ form.student_id() }}
+
+        </div>
+
+        <div class="form-group">
+
+            {{ form.course_code.label }}
+
+            {{ form.course_code() }}
+
+        </div>
+
+        {{ form.submit(class="btn") }}
+
+    </form>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <h3>Unable to create enrollment</h3>
+
+        <p>
+            You need at least one student and one course
+            before creating an enrollment.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- EXISTING ENROLLMENTS -->
+
+<div class="card">
+
+    <h2>Existing Enrollments</h2>
+
+    {% if enrollments %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Student</th>
+                    <th>Roll Number</th>
+                    <th>Course</th>
+                    <th>Course Code</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for enrollment in enrollments %}
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            {{ enrollment.student.name }}
+                        </strong>
+                    </td>
+
+                    <td>
+                        {{ enrollment.student.roll_no }}
+                    </td>
+
+                    <td>
+                        {{ enrollment.course.name }}
+                    </td>
+
+                    <td>
+                        <strong>
+                            {{ enrollment.course.code }}
+                        </strong>
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <h3>No enrollments yet</h3>
+
+        <p>
+            No students are enrolled in any courses yet.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

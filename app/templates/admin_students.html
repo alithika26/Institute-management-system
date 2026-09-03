@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}Student Management{% endblock %}
+
+{% block page_title %}
+Student Management
+{% endblock %}
+
+{% block page_subtitle %}
+Add, edit and manage student records.
+{% endblock %}
+
+{% block sidebar %}
+
+<a href="{{ url_for('admin.admin_dashboard') }}">
+    🏠 Dashboard
+</a>
+
+<a href="{{ url_for('admin.manage_students') }}">
+    👨‍🎓 Students
+</a>
+
+<a href="{{ url_for('admin.manage_faculty') }}">
+    👨‍🏫 Faculty
+</a>
+
+<a href="{{ url_for('admin.manage_programmes') }}">
+    📚 Programmes
+</a>
+
+<a href="{{ url_for('admin.manage_courses') }}">
+    📖 Courses
+</a>
+
+<a href="{{ url_for('admin.manage_enrollments') }}">
+    📝 Enrollments
+</a>
+
+<a href="{{ url_for('admin.admin_logout') }}">
+    🚪 Logout
+</a>
+
+{% endblock %}
+
+
+{% block user_info %}
+
+Admin
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ADD STUDENT -->
+
+<div class="card">
+
+    <h2>Add New Student</h2>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <div class="dashboard-grid">
+
+            <div class="form-group">
+                {{ form.roll_no.label }}
+                {{ form.roll_no() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.name.label }}
+                {{ form.name() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.programme.label }}
+                {{ form.programme() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.branch.label }}
+                {{ form.branch() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.semester.label }}
+                {{ form.semester() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password() }}
+            </div>
+
+        </div>
+
+        {{ form.submit(value="Add Student") }}
+
+    </form>
+
+</div>
+
+
+<!-- STUDENT LIST -->
+
+<div class="card">
+
+    <h2>Registered Students</h2>
+
+    {% if students %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                    <th>Programme</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for student in students %}
+
+                <tr>
+
+                    <td>
+                        <strong>{{ student.roll_no }}</strong>
+                    </td>
+
+                    <td>
+                        {{ student.name }}
+                    </td>
+
+                    <td>
+                        {{ student.programme }}
+                    </td>
+
+                    <td>
+                        {{ student.branch }}
+                    </td>
+
+                    <td>
+                        {{ student.semester }}
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <a
+                                href="{{ url_for(
+                                    'admin.edit_student',
+                                    roll_no=student.roll_no
+                                ) }}"
+                                class="btn"
+                            >
+                                Edit
+                            </a>
+
+
+                            <form
+                                method="POST"
+                                action="{{ url_for(
+                                    'admin.delete_student',
+                                    roll_no=student.roll_no
+                                ) }}"
+                            >
+
+                                {{ form.csrf_token }}
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger"
+                                    onclick="return confirm(
+                                        'Are you sure you want to delete this student?'
+                                    );"
+                                >
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <p style="color: #6b7280;">
+            No students registered yet.
+        </p>
+
+    {% endif %}
+
+</div>
+
+
+<div class="card">
+
+    <a
+        href="{{ url_for('admin.admin_dashboard') }}"
+        class="btn btn-secondary"
+    >
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

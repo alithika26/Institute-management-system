@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance</title>
+
+</head>
+
+<body>
+
+    <h1>Student Performance</h1>
+
+    <p>
+        <strong>Student:</strong>
+        {{ student.name }}
+    </p>
+
+    <p>
+        <strong>Roll Number:</strong>
+        {{ student.roll_no }}
+    </p>
+
+    <p>
+        <strong>Course:</strong>
+        {{ course.name }}
+        ({{ course.code }})
+    </p>
+
+    <hr>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <p>{{ message }}</p>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <h2>Enter Marks & Attendance</h2>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.quiz1_marks.label }}<br>
+            {{ form.quiz1_marks() }}
+        </p>
+
+        <p>
+            {{ form.midsem_marks.label }}<br>
+            {{ form.midsem_marks() }}
+        </p>
+
+        <p>
+            {{ form.quiz2_marks.label }}<br>
+            {{ form.quiz2_marks() }}
+        </p>
+
+        <p>
+            {{ form.lab_test_marks.label }}<br>
+            {{ form.lab_test_marks() }}
+        </p>
+
+        <p>
+            {{ form.endsem_marks.label }}<br>
+            {{ form.endsem_marks() }}
+        </p>
+
+        <p>
+            {{ form.attendance_in_perc.label }}<br>
+            {{ form.attendance_in_perc() }}
+        </p>
+
+        <p>
+            {{ form.submit() }}
+        </p>
+
+    </form>
+
+    <hr>
+
+    <p>
+        <a href="{{ url_for(
+            'faculty.faculty_course',
+            course_code=course.code
+        ) }}">
+            Back to Course
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('faculty.faculty_logout') }}">
+            Logout
+        </a>
+    </p>
+
+</body>
+
+</html>

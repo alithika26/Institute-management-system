@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard | Institute Management System{% endblock %}
+
+{% block page_title %}Student Dashboard{% endblock %}
+
+{% block page_subtitle %}
+View your academic information and performance
+{% endblock %}
+
+{% block user_info %}
+{{ student.name }}
+{% endblock %}
+
+{% block sidebar %}
+
+<a href="#" class="active">🏠 Dashboard</a>
+
+<a href="#student-info">👤 My Information</a>
+
+<a href="#performance">📊 Academic Performance</a>
+
+<a href="{{ url_for('auth.student_logout') }}">🚪 Logout</a>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- WELCOME -->
+
+<div class="card">
+
+    <h2>Welcome, {{ student.name }} 👋</h2>
+
+    <p style="color: #6b7280;">
+        Here's an overview of your academic information and performance.
+    </p>
+
+</div>
+
+
+<!-- STUDENT INFORMATION -->
+
+<div class="card" id="student-info">
+
+    <h2>👤 Student Information</h2>
+
+    <div class="dashboard-grid">
+
+        <div class="stat-card">
+            <div class="label">Roll Number</div>
+            <div class="value" style="font-size: 20px;">
+                {{ student.roll_no }}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">Programme</div>
+            <div class="value" style="font-size: 20px;">
+                {{ student.programme }}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">Branch</div>
+            <div class="value" style="font-size: 20px;">
+                {{ student.branch }}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="stat-card">
+            <div class="label">Current Semester</div>
+            <div class="value">
+                {{ student.semester }}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ACADEMIC PERFORMANCE -->
+
+<div class="card" id="performance">
+
+    <h2>📊 Academic Performance</h2>
+
+    {% if performances %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Course</th>
+                    <th>Quiz 1</th>
+                    <th>Mid-Sem</th>
+                    <th>Quiz 2</th>
+                    <th>Lab</th>
+                    <th>End-Sem</th>
+                    <th>Attendance</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for performance in performances %}
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            {{ performance.course.name }}
+                        </strong>
+                        <br>
+                        <span style="color: #6b7280;">
+                            {{ performance.course.code }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ performance.quiz1_marks }}
+                    </td>
+
+                    <td>
+                        {{ performance.midsem_marks }}
+                    </td>
+
+                    <td>
+                        {{ performance.quiz2_marks }}
+                    </td>
+
+                    <td>
+                        {{ performance.lab_test_marks }}
+                    </td>
+
+                    <td>
+                        {{ performance.endsem_marks }}
+                    </td>
+
+                    <td>
+                        <strong>
+                            {{ performance.attendance_in_perc }}%
+                        </strong>
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <h3>No performance records</h3>
+
+        <p>
+            No academic performance records are available yet.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- LOGOUT -->
+
+<div class="card">
+
+    <a
+        href="{{ url_for('auth.student_logout') }}"
+        class="btn btn-secondary"
+    >
+        🚪 Logout
+    </a>
+
+</div>
+
+{% endblock %}

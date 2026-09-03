@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Institute Management System
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    IMS
+                </div>
+
+                <div>
+                    <h2>Institute</h2>
+                    <span>Management System</span>
+                </div>
+
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                {% block sidebar %}
+                {% endblock %}
+
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <div>
+
+                    <h1>
+                        {% block page_title %}
+                        {% endblock %}
+                    </h1>
+
+                    <p>
+                        {% block page_subtitle %}
+                        {% endblock %}
+                    </p>
+
+                </div>
+
+
+                <div class="topbar-user">
+
+                    {% block user_info %}
+                    {% endblock %}
+
+                </div>
+
+            </header>
+
+
+            <!-- FLASH MESSAGES -->
+            <section class="flash-container">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        {% for category, message in messages %}
+
+                            <div class="flash-message {{ category }}">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </section>
+
+
+            <!-- PAGE CONTENT -->
+            <section class="content">
+
+                {% block content %}
+                {% endblock %}
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

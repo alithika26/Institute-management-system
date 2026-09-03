@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Faculty</title>
+
+</head>
+
+<body>
+
+    <h1>Edit Faculty</h1>
+
+    <p>
+        <strong>Faculty Code:</strong>
+        {{ faculty.fac_code }}
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name() }}
+        </p>
+
+        <p>
+            {{ form.room_no.label }}<br>
+            {{ form.room_no() }}
+        </p>
+
+        <p>
+            {{ form.phone_no.label }}<br>
+            {{ form.phone_no() }}
+        </p>
+
+        <p>
+            {{ form.email_id.label }}<br>
+            {{ form.email_id() }}
+        </p>
+
+        <p>
+            {{ form.office.label }}<br>
+            {{ form.office() }}
+        </p>
+
+        <p>
+            {{ form.submit() }}
+        </p>
+
+    </form>
+
+    <hr>
+
+    <a href="{{ url_for('admin.manage_faculty') }}">
+        Back to Faculty Management
+    </a>
+
+</body>
+
+</html>

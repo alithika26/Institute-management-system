@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Courses | Institute Management System{% endblock %}
+
+{% block page_title %}Manage Courses{% endblock %}
+
+{% block page_subtitle %}
+Create courses and assign faculty members
+{% endblock %}
+
+{% block user_info %}
+Administrator
+{% endblock %}
+
+{% block sidebar %}
+
+<a href="{{ url_for('admin.admin_dashboard') }}">Dashboard</a>
+
+<a href="{{ url_for('admin.manage_students') }}">Students</a>
+
+<a href="{{ url_for('admin.manage_faculty') }}">Faculty</a>
+
+<a href="{{ url_for('admin.manage_programmes') }}">Programmes</a>
+
+<a href="{{ url_for('admin.manage_courses') }}">Courses</a>
+
+<a href="{{ url_for('admin.manage_enrollments') }}">Enrollments</a>
+
+<a href="{{ url_for('admin.admin_logout') }}">Logout</a>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card">
+
+    <h2>Create New Course</h2>
+
+    {% if form.faculty_code.choices %}
+
+    <form method="POST">
+
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.code.label }}
+            {{ form.code(placeholder="e.g. CS101") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.name.label }}
+            {{ form.name(placeholder="e.g. Introduction to Computer Science") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.programme.label }}
+            {{ form.programme(placeholder="e.g. B.Tech") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.branch.label }}
+            {{ form.branch(placeholder="e.g. Information Technology") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.semester.label }}
+            {{ form.semester(placeholder="e.g. 6") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.faculty_code.label }}
+            {{ form.faculty_code() }}
+        </div>
+
+        {{ form.submit(class="btn") }}
+
+    </form>
+
+    {% else %}
+
+    <p>
+        <strong>No faculty members are available.</strong>
+    </p>
+
+    <p style="margin-top: 10px;">
+        Register a faculty member before creating a course.
+    </p>
+
+    <br>
+
+    <a href="{{ url_for('admin.manage_faculty') }}" class="btn">
+        Add Faculty
+    </a>
+
+    {% endif %}
+
+</div>
+
+
+<div class="card">
+
+    <h2>Existing Courses</h2>
+
+    {% if courses %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Course</th>
+                    <th>Programme</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>Faculty</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for course in courses %}
+
+                <tr>
+
+                    <td>
+                        <strong>{{ course.code }}</strong>
+                    </td>
+
+                    <td>
+                        {{ course.name }}
+                    </td>
+
+                    <td>
+                        {{ course.programme }}
+                    </td>
+
+                    <td>
+                        {{ course.branch }}
+                    </td>
+
+                    <td>
+                        Semester {{ course.semester }}
+                    </td>
+
+                    <td>
+
+                        {% if course.faculty %}
+
+                            {% for assignment in course.faculty %}
+
+                                {{ assignment.faculty.name }}
+
+                                {% if not loop.last %}, {% endif %}
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <span style="color: #6b7280;">
+                                Not assigned
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <p>No courses have been created yet.</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
