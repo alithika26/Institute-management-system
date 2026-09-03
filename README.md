@@ -120,4 +120,30 @@ python run.py
 
 Open `http://127.0.0.1:5000` in your browser.
 
+## Application Roles
+
+| Role | Main Responsibilities |
+|------|------------------------|
+| Student | View courses, marks and attendance |
+| Faculty | Manage assigned courses and student performance |
+| Admin | Manage students, faculty, programmes, courses and enrollments |
+
+## Security
+
+- Passwords are stored using password hashing.
+- Sensitive configuration values are managed through environment variables.
+- Database files and local environment files are excluded from version control.
+
+## Future Improvements
+
+- REST API integration
+- Advanced reporting and analytics
+- Email notifications
+- Improved deployment configuration
+- Automated testing
+## Author
+
+**Alithika**
+
+Built as a full-stack academic management application using Flask.
 
